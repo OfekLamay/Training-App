@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from 'react';
-import {HashRouter as Router,Switch,Route} from 'react-router-dom';
+import {HashRouter as Router, Routes , Route} from 'react-router-dom';
 
 // components
 import Header from './components/Header';
@@ -104,10 +104,10 @@ function App() {
     <div className="App">
   <Header title={"Training App"}/>
       <Router>
-        <Switch>
+        <Routes>
           <Route path={'/'} element={displaySetUpPage()} />
           <Route path={`/training/${user.pageUrl}`} element={displayTrainingPage()}/>
-        </Switch>
+        </Routes>
       </Router>
     </div>
   );
