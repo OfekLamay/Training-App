@@ -1,0 +1,180 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: rgb(127, 246, 255);
+}
+
+h1 {
+  font-size: 55px;
+}
+
+*{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.selectOptions {
+  font-size: 40px;
+  background-color: rgb(127, 255, 191);
+  color: rgb(0, 0, 0);
+  border: 2px solid white;
+  width: fit-content;
+  margin: auto;
+}
+
+.nameLabel {
+  font-size: 35px;
+  color: black;
+  width: fit-content;
+  margin: auto;
+}
+
+.questionLabel {
+  font-size: 25px;
+  color: black;
+  width: fit-content;
+  margin: auto;
+}
+
+.clickbtn {
+  cursor: pointer;
+  background-color: rgb(22, 143, 219);
+  font-size: 35px;
+  color: white;
+  width: fit-content;
+  margin: auto;
+  border-radius: 35px;
+}
+
+.flexboxContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 50%;
+  margin:auto;
+  min-height: 50px;
+  height: 50%;
+}
+
+.flexboxContainerLine {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  width: 70%;
+  margin:auto;
+  font-size: 35px;
+}
+
+.inputLabel {
+  font-size: 25px;
+  text-align: center;
+  width: fit-content;
+  margin:auto;
+}
+
+input {
+  margin: 5px;
+}
+
+.workout {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 20px;
+  margin: 15px;
+}
+
+.workoutData {
+  margin: auto;
+  font-size: 25px;
+  border: 3px solid blue;
+  width: fit-content;
+  padding: 10px;
+}
+
+.workoutHeader {
+  font-size: 35px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+@media (max-width: 450px) {
+
+  h1 {
+    font-size: 35px;
+  }
+
+  .nameLabel {
+    font-size: 20px;
+    color: black;
+    width: fit-content;
+    margin: auto;
+  }
+
+  .flexboxContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 70%;
+    margin:auto;
+    min-height: 50px;
+    height: 50%;
+  }
+
+  .inputLabel {
+    font-size: 15px;
+    text-align: center;
+    width: fit-content;
+    margin:auto;
+  }
+
+  .selectOptions {
+    font-size: 20px;
+    background-color: rgb(127, 255, 191);
+    color: rgb(0, 0, 0);
+    border: 2px solid white;
+    width: fit-content;
+    margin: auto;
+  }
+
+  .clickbtn {
+    cursor: pointer;
+    background-color: rgb(22, 143, 219);
+    font-size: 20px;
+    color: white;
+    width: fit-content;
+    margin: auto;
+    border-radius: 20px;
+  }
+
+  .questionLabel {
+    font-size: 15px;
+    color: black;
+    width: fit-content;
+    margin: auto;
+  }
+
+  .workout {
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 15px;
+    margin: 15px;
+  }
+
+  .workoutData {
+    margin: auto;
+    font-size: 18px;
+    border: 3px solid blue;
+    width: fit-content;
+    padding: 7px;
+  }
+  
+  .workoutHeader {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+}
