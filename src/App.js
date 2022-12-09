@@ -9,13 +9,17 @@ import SetUp from './components/SetUp';
 import Ready from './components/Ready';
 import TrainingPage from './components/TrainingPage';
 import WorkoutEdit from './components/WorkoutEdit';
+import Login from './components/Login';
 
 function App() {
+  
+  const [allUsers, setAllUsers] = useState([])
 
   const [user, setUser] = useState({
     id: 0,
     name: "",
     gender: "",
+    password: "",
     weeklyWorkouts: 0,
     yearsTraining: 0,
     pageUrl: "",
@@ -26,12 +30,14 @@ function App() {
     home: 'home',
     setup: 'setup',
     ready: 'ready',
+    login: 'login',
     trainer: 'trainer',
     workoutEdit: 'workoutEdit'
   }
 
   const finishWorkout = (workoutId) => {
     let userWorkouts = user.workouts;
+    let users = allUsers;
     for (let i = 0; i < userWorkouts.length; i++)
     {
       if (userWorkouts[i].workout === workoutId)
@@ -53,11 +59,23 @@ function App() {
       id: user.id,
       name: user.name,
       gender: user.gender,
+      password: user.password,
       weeklyWorkouts: user.weeklyWorkouts,
       yearsTraining: user.yearsTraining,
       pageUrl: user.pageUrl,
       workouts: userWorkouts
     })
+
+    users[(getUserIndex(user.id))] = {
+      id: user.id,
+      name: user.name,
+      gender: user.gender,
+      password: user.password,
+      weeklyWorkouts: user.weeklyWorkouts,
+      yearsTraining: user.yearsTraining,
+      pageUrl: user.pageUrl,
+      workouts: userWorkouts
+    }
   }
 
   const [workoutId, setWorkoutId] = useState(0);
@@ -65,26 +83,76 @@ function App() {
 
   const [currentSetUpPage, setCurrentSetUpPage] = useState(pages.home);
   const [currentTrainigPage, setCurrentTrainigPage] = useState(pages.trainer);
+  
+  const logout = () => {
+    setCurrentSetUpPage('home')
+  }
+
+  const addNewUser = () => {
+    setAllUsers([...allUsers, user])
+  }
+
+  const checkLogIn = (id, password) => {
+    
+    for (let i = 0; i < allUsers.length; i++)
+    {
+      if (allUsers[i].id === id)
+        if (allUsers[i].password === password)
+          {
+            setUser(allUsers[i]);
+            setCurrentTrainigPage(pages.trainer);
+            alert("Logged in!");
+            return true;
+          }
+    }
+
+    alert("Wrong details")
+    return false;
+  }
+
+  const getPageUrlById = (id) => {
+    for (let i = 0; i < allUsers.length; i++)
+    {
+      if (allUsers[i].id === id)
+      {
+        return `/training/${allUsers[i].pageUrl}`;
+      }
+    }
+
+    return "/"
+  }
+
+  const getUserIndex = (id) => {
+    for (let i = 0; i < allUsers.length; i++)
+    {
+      if (allUsers[i].id === id)
+      {
+        return i;
+      }
+    }
+
+    return -1;
+  }
 
   const displaySetUpPage = () => { // Show what needed and hide everything else
     switch(currentSetUpPage) {
       case pages.home:
-        {
-          return <Home setUser={setUser} changePage = {setCurrentSetUpPage}/>
-        }
+      {
+        return <Home setUser={setUser} changePage = {setCurrentSetUpPage} users={allUsers}/>
+      }
       case pages.setup:
-        {
-          return <SetUp user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
-        }
+      {
+        return <SetUp user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
+      }
       case pages.ready:
-        {
-          return <Ready user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
-        }
+      {
+        return <Ready user={user} setUser={setUser} addUser={addNewUser} changePage = {setCurrentSetUpPage}/>
+      }
+      case pages.login:
+      {
+        return <Login getUrl = {getPageUrlById} changePage = {setCurrentSetUpPage} checkCredentials = {checkLogIn}/>
+      }
     }
-  }
-
-  const logout = () => {
-    setCurrentSetUpPage('home')
   }
 
   const displayTrainingPage = () => { // Show what needed and hide everything else

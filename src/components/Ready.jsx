@@ -8,12 +8,13 @@ export default function Ready(props) {
 
     const clickYes = () => {
         window.alert("You will be redirected to your page")
+        props.addUser(props.user)
         props.changePage('home')
         navigate(`/training/${props.user.pageUrl}`);
     }
 
     const clickNo = () => {
-        window.alert("You will be redirected to home page")
+        window.alert("You will be redirected to home page \nYour signing in details were not saved")
         props.setUser({});
         props.changePage('home')
     }

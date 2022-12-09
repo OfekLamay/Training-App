@@ -5,7 +5,7 @@ export default function SelectPattern(props) {
     <div>
         <select className='selectOptions' name={props.data.name} id={props.data.id}>
             {props.data.options.map((option) => {
-                return <option value={option.value}>{option.text}</option>
+                return <option key={option.value} value={option.value}>{option.text}</option>
             })}
         </select>
     </div>
