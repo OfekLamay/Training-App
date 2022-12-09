@@ -64,6 +64,7 @@ h1 {
   justify-content: space-between;
   text-align: center;
   width: 70%;
+  max-width: 300px;
   margin:auto;
   font-size: 35px;
 }
@@ -128,7 +129,7 @@ input {
     font-size: 15px;
     text-align: center;
     width: fit-content;
-    margin:auto;
+    margin: auto;
   }
 
   .selectOptions {
@@ -143,6 +144,7 @@ input {
   .clickbtn {
     cursor: pointer;
     background-color: rgb(22, 143, 219);
+    padding: 4px;
     font-size: 20px;
     color: white;
     width: fit-content;

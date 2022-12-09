@@ -37,6 +37,8 @@ export default function Home(props) {
     let id = document.getElementById('id').value;
     let name = document.getElementById('name').value;
     let gender = document.getElementById('genderSelect').value;
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
 
     if (isNaN(id))
     {
@@ -82,12 +84,19 @@ export default function Home(props) {
       return;
     }
 
+    if (password !== confirmPassword)
+    {
+      window.alert("You didn't type the same password");
+      return;
+    }
+
     window.alert("All details are OK :D \nYou will be redirected to setup page");
     
     props.setUser({
       id: id,
       name: name,
-      gender: gender
+      gender: gender,
+      password: password,
     });
 
     props.changePage('setup')
@@ -107,17 +116,23 @@ export default function Home(props) {
 
   return (
     <div>
-        <div className='flexboxContainer'>
-          <div className='nameLabel'>Enter your details</div>
-          <br /><br />
-          <input type="text" id='id' className='inputLabel' placeholder='Enter your id' />
-          <br /><br />
-          <input type="text" id="name" className='inputLabel' placeholder='Enter your name' />
-          <br /><br />
-          <SelectPattern data={optionsData}/>
-          <br /><br />
-          <button onClick={areDetailsValid} className='clickbtn'>Next</button>
-        </div>
+      <div className='flexboxContainer'>
+        <div className='nameLabel'>Enter your details</div>
+        <br /><br />
+        <input type="text" id='id' className='inputLabel' placeholder='Enter your id' />
+        <br /><br />
+        <input type="text" id="name" className='inputLabel' placeholder='Enter your name' />
+        <br /><br />
+        <input type="password" id="password" className='inputLabel' placeholder='Enter your password' />
+        <br /><br />
+        <input type="password" id="confirmPassword" className='inputLabel' placeholder='Confirm password' />
+        <br /><br />
+        <SelectPattern data={optionsData}/>
+        <br /><br />
+        <button onClick={areDetailsValid} className='clickbtn'>Sign up</button>
+        <br /><br />
+        <button onClick={()=>{props.changePage('login')}} className='clickbtn'>Go to log in screen</button>
+      </div>
     </div>
   )
 }

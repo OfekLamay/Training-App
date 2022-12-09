@@ -51,9 +51,10 @@ export default function SetUp(props) {
             id: props.user.id,
             name: props.user.name,
             gender: props.user.gender,
+            password: props.user.password,
             weeklyWorkouts: timesAweek,
             yearsTraining: years,
-            pageUrl: props.user.name.replace(" ", "-"),
+            pageUrl: (props.user.name.replace(" ", "-") + props.user.id.toString()),
             workouts: []
         })
         props.changePage('ready')   

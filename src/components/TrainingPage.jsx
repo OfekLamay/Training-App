@@ -64,18 +64,19 @@ export default function TrainingPage(props) {
 
     useEffect(()=>{
         if (props.user.workouts.length === 0)
-            {
-                generateWorkoutsData();
-                props.setUser({
-                    id: props.user.id,
-                    name: props.user.name,
-                    gender: props.user.gender,
-                    weeklyWorkouts: props.user.weeklyWorkouts,
-                    yearsTraining: props.user.yearsTraining,
-                    pageUrl: props.user.pageUrl,
-                    workouts: workouts
-                })
-            }
+        {
+            generateWorkoutsData();
+            props.setUser({
+                id: props.user.id,
+                name: props.user.name,
+                gender: props.user.gender,
+                password: props.user.password, 
+                weeklyWorkouts: props.user.weeklyWorkouts,
+                yearsTraining: props.user.yearsTraining,
+                pageUrl: props.user.pageUrl,
+                workouts: workouts
+            })
+        }
         else if (areWorkoutsDone())
         {
             generateWorkoutsData();
@@ -83,6 +84,7 @@ export default function TrainingPage(props) {
                     id: props.user.id,
                     name: props.user.name,
                     gender: props.user.gender,
+                    password: props.user.password, 
                     weeklyWorkouts: props.user.weeklyWorkouts,
                     yearsTraining: props.user.yearsTraining,
                     pageUrl: props.user.pageUrl,
@@ -105,7 +107,7 @@ export default function TrainingPage(props) {
         <br /><br />
         <div className='flexboxContainer'>
             {props.user.workouts.map((workout) => {
-                return <Workout workoutData={workout} changePage = {props.changePage} setWorkoutId={props.setWorkoutId}/>
+                return <Workout key={`workout${workout.workout}`} workoutData={workout} changePage = {props.changePage} setWorkoutId={props.setWorkoutId}/>
             })}
         </div>
         <br /><br /><br />
