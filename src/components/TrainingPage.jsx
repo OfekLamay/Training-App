@@ -27,7 +27,7 @@ export default function TrainingPage(props) {
 
     const generateWorkoutsData = () => {
         let workoutsNumber = props.user.weeklyWorkouts, yearsTraining = props.user.yearsTraining;
-        let trainingKM = (5 * yearsTraining) / workoutsNumber; // if years is 0, would be only workouts of 0 km...
+        let trainingKM = (1+ (5 * yearsTraining)) / workoutsNumber;
         
         for (let i = 0; i < timesDone; i++)
             trainingKM *= 1.15;

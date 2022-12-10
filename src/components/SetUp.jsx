@@ -58,10 +58,15 @@ export default function SetUp(props) {
             workouts: []
         })
         props.changePage('ready')   
-      }
+    }
+
+    const goBack = () => {
+        props.changePage('home')   
+    }
 
   return (
     <div>
+        <div className='backbtn' onClick={goBack}>Back</div>
         <div className='nameLabel'>Hello {props.user.name}!</div>
         <br/> <br/>
         <div className='questionLabel'>How many workouts a week?</div>
