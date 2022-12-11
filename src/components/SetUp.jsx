@@ -46,7 +46,7 @@ export default function SetUp(props) {
             return;
         }
     
-        window.alert("All details are OK :D \nYou will be redirected to final setup page");
+        window.alert("All details are OK \nYou will be redirected to final setup page");
         props.setUser({
             id: props.user.id,
             name: props.user.name,

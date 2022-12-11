@@ -23,16 +23,6 @@ export default function Home(props) {
     return false;
   }
 
-  function doesHaveUppercaseLetters(string)
-  {
-    for (let i = 0; i< string.length; i++)
-    {
-      if (string[i] === string[i].toUpperCase() && string[i] !== " ")
-        return true;
-    }
-    return false;
-  }
-
   const areDetailsValid = () => {
     let id = document.getElementById('id').value;
     let name = document.getElementById('name').value;
@@ -66,12 +56,6 @@ export default function Home(props) {
       return;
     }
 
-    if (doesHaveUppercaseLetters(name))
-    {
-      window.alert("Please insert your name with under cases only");
-      return;
-    }
-
     if (countLetterInString(" ", name) < 1)
     {
       window.alert("Name must have at least 1 space");
@@ -90,7 +74,13 @@ export default function Home(props) {
       return;
     }
 
-    window.alert("All details are OK :D \nYou will be redirected to setup page");
+    if (password.length < 5 )
+    {
+      window.alert("Your password must be at least 5 letters long");
+      return;
+    }
+
+    window.alert("All details are OK \nYou will be redirected to setup page");
     
     props.setUser({
       id: id,
