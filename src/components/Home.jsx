@@ -117,7 +117,7 @@ export default function Home(props) {
   return (
     <div>
       <div className='flexboxContainer'>
-        <div className='nameLabel'>Enter your details</div>
+        <div className='nameLabel'>Enter your details or <div className='goToLogin' onClick={()=>{props.changePage('login')}}> go to log in screen</div></div>
         <br /><br />
         <input type="text" id='id' className='inputLabel' placeholder='Enter your id' />
         <br /><br />
@@ -130,8 +130,6 @@ export default function Home(props) {
         <SelectPattern data={optionsData}/>
         <br /><br />
         <button onClick={areDetailsValid} className='clickbtn'>Sign up</button>
-        <br /><br />
-        <button onClick={()=>{props.changePage('login')}} className='clickbtn'>Go to log in screen</button>
       </div>
     </div>
   )
