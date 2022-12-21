@@ -80,6 +80,12 @@ export default function Home(props) {
       return;
     }
 
+    if (!doesConatainLettersAndNumbersOnly(password))
+    {
+      window.alert("Your password must contain only numbers and letters");
+      return;
+    }
+
     window.alert("All details are OK \nYou will be redirected to setup page");
     
     props.setUser({
@@ -91,6 +97,19 @@ export default function Home(props) {
 
     props.changePage('setup')
 
+  }
+
+  const doesConatainLettersAndNumbersOnly = (password) => {
+
+    for (let i = 0; i < password.toString().length; i++)
+    {
+      if (password.codePointAt(i) <= 47 ||
+      (password.codePointAt(i) >= 58 && password.codePointAt(i) <= 64) ||
+      (password.codePointAt(i) >= 91 && password.codePointAt(i) <= 96) || password.codePointAt(i) >= 123)
+      return false;
+    }
+
+    return true
   }
 
   function countLetterInString(letter, str)
