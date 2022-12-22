@@ -1,5 +1,8 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import store from '../store/store';
+import { finishWorkout } from '../store/userSlices';
+
 
 export default function WorkoutEdit(props) {
 
@@ -8,6 +11,7 @@ export default function WorkoutEdit(props) {
     const clickSuccess = () => {
         window.alert("Workout done!")
         props.finishWorkout(props.workoutData.workout)
+        store.dispatch(finishWorkout({workoutId: props.workoutData.workout, user: props.user}))
         props.changePage('trainer');
         navigate(`/training/${props.user.pageUrl}`);
     }

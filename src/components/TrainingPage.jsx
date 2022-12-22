@@ -2,6 +2,8 @@ import React from 'react'
 import {useState, useEffect} from 'react';
 import Workout from './Workout';
 import { useNavigate } from "react-router-dom";
+import store from '../store/store';
+import { generateWorkouts } from '../store/userSlices';
 
 export default function TrainingPage(props) {
 
@@ -56,7 +58,7 @@ export default function TrainingPage(props) {
         }
         if (counter === props.user.workouts.length)
         {
-            setTimesDone(timesDone + 1);
+            setTimesDone(props.user.weeksDone);
             return true;
         }
         return false;
@@ -66,6 +68,7 @@ export default function TrainingPage(props) {
         if (props.user.workouts.length === 0)
         {
             generateWorkoutsData();
+            store.dispatch(generateWorkouts({user: props.user}));
             props.setUser({
                 id: props.user.id,
                 name: props.user.name,
@@ -81,17 +84,18 @@ export default function TrainingPage(props) {
         else if (areWorkoutsDone())
         {
             generateWorkoutsData();
-                props.setUser({
-                    id: props.user.id,
-                    name: props.user.name,
-                    gender: props.user.gender,
-                    password: props.user.password, 
-                    weeklyWorkouts: props.user.weeklyWorkouts,
-                    yearsTraining: props.user.yearsTraining,
-                    pageUrl: props.user.pageUrl,
-                    workouts: workouts,
-                    weeksDone: props.user.weeksDone,
-                })
+            store.dispatch(generateWorkouts({user: props.user}));
+            props.setUser({
+                id: props.user.id,
+                name: props.user.name,
+                gender: props.user.gender,
+                password: props.user.password, 
+                weeklyWorkouts: props.user.weeklyWorkouts,
+                yearsTraining: props.user.yearsTraining,
+                pageUrl: props.user.pageUrl,
+                workouts: workouts,
+                weeksDone: props.user.weeksDone,
+            })
         }
       })
 
