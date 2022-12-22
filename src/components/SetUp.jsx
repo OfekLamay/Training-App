@@ -55,7 +55,8 @@ export default function SetUp(props) {
             weeklyWorkouts: timesAweek,
             yearsTraining: years,
             pageUrl: (props.user.name.replace(" ", "-") + props.user.id.toString()),
-            workouts: []
+            workouts: [],
+            weeksDone: 0,
         })
         props.changePage('ready')   
     }

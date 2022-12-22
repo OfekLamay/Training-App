@@ -1,6 +1,9 @@
 import './App.css';
 import {useState} from 'react';
 import {HashRouter as Router, Routes , Route} from 'react-router-dom';
+// import store from './store/store';
+// import { useSelector } from 'react-redux';
+
 
 // components
 import Header from './components/Header';
@@ -11,9 +14,12 @@ import TrainingPage from './components/TrainingPage';
 import WorkoutEdit from './components/WorkoutEdit';
 import Login from './components/Login';
 
+
 function App() {
   
   const [allUsers, setAllUsers] = useState([])
+
+  // const allUsers = useSelector(state => store.getState().users.users)
 
   const [user, setUser] = useState({
     id: 0,
@@ -23,7 +29,8 @@ function App() {
     weeklyWorkouts: 0,
     yearsTraining: 0,
     pageUrl: "",
-    workouts: []
+    workouts: [],
+    weeksDone: 0,
   })
 
   const pages = {
@@ -35,9 +42,15 @@ function App() {
     workoutEdit: 'workoutEdit'
   }
 
+  const [workoutId, setWorkoutId] = useState(0);
+
+  const [currentSetUpPage, setCurrentSetUpPage] = useState(pages.home);
+  const [currentTrainigPage, setCurrentTrainigPage] = useState(pages.trainer);
+
   const finishWorkout = (workoutId) => {
     let userWorkouts = user.workouts;
     let users = allUsers;
+    let finishedWeeksToAdd = 0
     for (let i = 0; i < userWorkouts.length; i++)
     {
       if (userWorkouts[i].workout === workoutId)
@@ -53,7 +66,7 @@ function App() {
         counter++;
 
     if (counter === userWorkouts.length)
-      setFinishedWeeks(finishedWeeks + 1);
+      finishedWeeksToAdd++
 
     setUser({
       id: user.id,
@@ -63,7 +76,8 @@ function App() {
       weeklyWorkouts: user.weeklyWorkouts,
       yearsTraining: user.yearsTraining,
       pageUrl: user.pageUrl,
-      workouts: userWorkouts
+      workouts: userWorkouts,
+      weeksDone: user.weeksDone + finishedWeeksToAdd,
     })
 
     users[(getUserIndex(user.id))] = {
@@ -74,15 +88,10 @@ function App() {
       weeklyWorkouts: user.weeklyWorkouts,
       yearsTraining: user.yearsTraining,
       pageUrl: user.pageUrl,
-      workouts: userWorkouts
+      workouts: userWorkouts,
+      weeksDone: user.weeksDone + finishedWeeksToAdd,
     }
   }
-
-  const [workoutId, setWorkoutId] = useState(0);
-  const [finishedWeeks, setFinishedWeeks] = useState(0);
-
-  const [currentSetUpPage, setCurrentSetUpPage] = useState(pages.home);
-  const [currentTrainigPage, setCurrentTrainigPage] = useState(pages.trainer);
   
   const logout = () => {
     setCurrentSetUpPage('home')
@@ -152,19 +161,27 @@ function App() {
       {
         return <Login getUrl = {getPageUrlById} changePage = {setCurrentSetUpPage} checkCredentials = {checkLogIn}/>
       }
+      default: 
+      {
+        return null;
+      }
     }
   }
 
   const displayTrainingPage = () => { // Show what needed and hide everything else
     switch(currentTrainigPage) {
       case pages.trainer:
-        {
-          return <TrainingPage logout={logout} timesDone={finishedWeeks} setUser={setUser} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
-        }
+      {
+        return <TrainingPage logout={logout} setUser={setUser} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
+      }
       case pages.workoutEdit:
-        {
-          return <WorkoutEdit user={user} setWorkoutId={setWorkoutId} workoutData={user.workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
-        }
+      {
+        return <WorkoutEdit user={user} setWorkoutId={setWorkoutId} workoutData={user.workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
+      }
+      default: 
+      {
+        return null;
+      }
     }
   }
 
@@ -174,7 +191,10 @@ function App() {
       <Router>
         <Routes>
           <Route path={'/'} element={displaySetUpPage()} />
-          <Route path={`/training/${user.pageUrl}`} element={displayTrainingPage()}/>
+          {/* <Route path={`/training/${user.pageUrl}`} element={displayTrainingPage()}/> */}
+          {allUsers.map((user, index) => {
+            return <Route userIndex={index} key={user.id} path={`/training/${user.pageUrl}`} element={displayTrainingPage()} />
+          })}
         </Routes>
       </Router>
     </div>

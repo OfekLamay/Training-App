@@ -1,5 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import store from '../store/store';
+import { addUser } from '../store/userSlices';
 
 
 export default function Ready(props) {
@@ -9,6 +11,7 @@ export default function Ready(props) {
     const clickYes = () => {
         window.alert("You will be redirected to your page")
         props.addUser(props.user)
+        store.dispatch(addUser(props.user))
         props.changePage('home')
         navigate(`/training/${props.user.pageUrl}`);
     }

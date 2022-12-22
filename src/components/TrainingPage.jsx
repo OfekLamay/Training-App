@@ -8,7 +8,7 @@ export default function TrainingPage(props) {
     const navigate = useNavigate()
 
     const [workouts, setWorkouts] = useState([])
-    const [timesDone, setTimesDone] = useState(props.timesDone)
+    const [timesDone, setTimesDone] = useState(props.user.weeksDone)
 
     function logout()
     {
@@ -27,7 +27,7 @@ export default function TrainingPage(props) {
 
     const generateWorkoutsData = () => {
         let workoutsNumber = props.user.weeklyWorkouts, yearsTraining = props.user.yearsTraining;
-        let trainingKM = (1+ (5 * yearsTraining)) / workoutsNumber;
+        let trainingKM = (1 + (5 * yearsTraining)) / workoutsNumber;
         
         for (let i = 0; i < timesDone; i++)
             trainingKM *= 1.15;
@@ -49,7 +49,7 @@ export default function TrainingPage(props) {
     const areWorkoutsDone = () =>
     {
         let counter = 0;
-        for (let i = 0; i< props.user.workouts.length; i++)
+        for (let i = 0; i < props.user.workouts.length; i++)
         {
             if (props.user.workouts[i].isDone === true)
             counter++;
@@ -74,7 +74,8 @@ export default function TrainingPage(props) {
                 weeklyWorkouts: props.user.weeklyWorkouts,
                 yearsTraining: props.user.yearsTraining,
                 pageUrl: props.user.pageUrl,
-                workouts: workouts
+                workouts: workouts,
+                weeksDone: props.user.weeksDone,
             })
         }
         else if (areWorkoutsDone())
@@ -88,7 +89,8 @@ export default function TrainingPage(props) {
                     weeklyWorkouts: props.user.weeklyWorkouts,
                     yearsTraining: props.user.yearsTraining,
                     pageUrl: props.user.pageUrl,
-                    workouts: workouts
+                    workouts: workouts,
+                    weeksDone: props.user.weeksDone,
                 })
         }
       })
