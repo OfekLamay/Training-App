@@ -49,7 +49,7 @@ function App() {
 
   const finishWorkout = (workoutId) => {
     let userWorkouts = user.workouts;
-    let users = allUsers;
+    let users = [...allUsers];
     let finishedWeeksToAdd = 0
     for (let i = 0; i < userWorkouts.length; i++)
     {
@@ -156,6 +156,7 @@ function App() {
       case pages.ready:
       {
         return <Ready user={user} setUser={setUser} addUser={addNewUser} changePage = {setCurrentSetUpPage}/>
+        // return <Ready user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
       }
       case pages.login:
       {
@@ -191,7 +192,6 @@ function App() {
       <Router>
         <Routes>
           <Route path={'/'} element={displaySetUpPage()} />
-          {/* <Route path={`/training/${user.pageUrl}`} element={displayTrainingPage()}/> */}
           {allUsers.map((user, index) => {
             return <Route userIndex={index} key={user.id} path={`/training/${user.pageUrl}`} element={displayTrainingPage()} />
           })}
