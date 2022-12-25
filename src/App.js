@@ -21,7 +21,7 @@ function App() {
 
   const allUsers1 = useSelector(state => store.getState().users.users)
 
-  console.log(allUsers1)
+  // console.log(allUsers1)
 
   const [user, setUser] = useState({
     id: 0,
@@ -184,11 +184,11 @@ function App() {
     switch(currentTrainigPage) {
       case pages.trainer:
       {
-        return <TrainingPage logout={logout} setUser={setUser} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
+        return <TrainingPage logout={logout} getUserIndex={getUserIndex} setUser={setUser} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
       }
       case pages.workoutEdit:
       {
-        return <WorkoutEdit user={user} setWorkoutId={setWorkoutId} workoutData={user.workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
+        return <WorkoutEdit user={user} setWorkoutId={setWorkoutId} workoutData={allUsers1[(getUserIndex(user.id))].workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
       }
       default: 
       {

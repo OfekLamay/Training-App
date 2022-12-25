@@ -10,7 +10,7 @@ export default function Login(props) {
         let password = document.getElementById('password').value;
     
         if (props.checkCredentials(id, password))
-            navigate(props.getUrl(id));
+          navigate(props.getUrl(id));
     
       }
 

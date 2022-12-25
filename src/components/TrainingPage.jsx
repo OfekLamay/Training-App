@@ -4,13 +4,16 @@ import Workout from './Workout';
 import { useNavigate } from "react-router-dom";
 import store from '../store/store';
 import { generateWorkouts } from '../store/userSlices';
+import { useSelector } from 'react-redux';
 
 export default function TrainingPage(props) {
 
     const navigate = useNavigate()
+    const userIndex = props.getUserIndex(props.user.id)
+    const currentUser = useSelector(state => store.getState().users.users[userIndex])
 
     const [workouts, setWorkouts] = useState([])
-    const [timesDone, setTimesDone] = useState(props.user.weeksDone)
+    const [timesDone, setTimesDone] = useState(currentUser.weeksDone)
 
     function logout()
     {
@@ -20,15 +23,15 @@ export default function TrainingPage(props) {
 
     function nextWorkoutNumber()
     {
-      for (let i = 0; i < props.user.workouts.length; i++)
+      for (let i = 0; i < currentUser.workouts.length; i++)
       {
-        if (props.user.workouts[i].isDone === false)
+        if (currentUser.workouts[i].isDone === false)
           return i + 1;
       }
     }
 
     const generateWorkoutsData = () => {
-        let workoutsNumber = props.user.weeklyWorkouts, yearsTraining = props.user.yearsTraining;
+        let workoutsNumber = currentUser.weeklyWorkouts, yearsTraining = currentUser.yearsTraining;
         let trainingKM = (1 + (5 * yearsTraining)) / workoutsNumber;
         
         for (let i = 0; i < timesDone; i++)
@@ -51,57 +54,58 @@ export default function TrainingPage(props) {
     const areWorkoutsDone = () =>
     {
         let counter = 0;
-        for (let i = 0; i < props.user.workouts.length; i++)
+        for (let i = 0; i < currentUser.workouts.length; i++)
         {
-            if (props.user.workouts[i].isDone === true)
+            if (currentUser.workouts[i].isDone === true)
             counter++;
         }
-        if (counter === props.user.workouts.length)
+        if (counter === currentUser.workouts.length)
         {
-            setTimesDone(props.user.weeksDone);
+            setTimesDone(currentUser.weeksDone);
             return true;
         }
         return false;
     }
 
     useEffect(()=>{
-        if (props.user.workouts.length === 0)
+        if (currentUser.workouts.length === 0)
         {
             generateWorkoutsData();
-            store.dispatch(generateWorkouts({user: props.user}));
+            store.dispatch(generateWorkouts({user: currentUser}));
             props.setUser({
-                id: props.user.id,
-                name: props.user.name,
-                gender: props.user.gender,
-                password: props.user.password, 
-                weeklyWorkouts: props.user.weeklyWorkouts,
-                yearsTraining: props.user.yearsTraining,
-                pageUrl: props.user.pageUrl,
+                id: currentUser.id,
+                name: currentUser.name,
+                gender: currentUser.gender,
+                password: currentUser.password, 
+                weeklyWorkouts: currentUser.weeklyWorkouts,
+                yearsTraining: currentUser.yearsTraining,
+                pageUrl: currentUser.pageUrl,
                 workouts: workouts,
-                weeksDone: props.user.weeksDone,
+                weeksDone: currentUser.weeksDone,
             })
         }
         else if (areWorkoutsDone())
         {
             generateWorkoutsData();
-            store.dispatch(generateWorkouts({user: props.user}));
+            store.dispatch(generateWorkouts({user: currentUser}));
             props.setUser({
-                id: props.user.id,
-                name: props.user.name,
-                gender: props.user.gender,
-                password: props.user.password, 
-                weeklyWorkouts: props.user.weeklyWorkouts,
-                yearsTraining: props.user.yearsTraining,
-                pageUrl: props.user.pageUrl,
+                id: currentUser.id,
+                name: currentUser.name,
+                gender: currentUser.gender,
+                password: currentUser.password, 
+                weeklyWorkouts: currentUser.weeklyWorkouts,
+                yearsTraining: currentUser.yearsTraining,
+                pageUrl: currentUser.pageUrl,
                 workouts: workouts,
-                weeksDone: props.user.weeksDone,
+                weeksDone: currentUser.weeksDone,
             })
         }
         else
         {
-
+            if (workouts.length === 0)
+                generateWorkoutsData();
         }
-      }, [props.user.workouts])
+      }, [currentUser.workouts])
 
     const changeToWorkoutEditPage = () => {
         props.setWorkoutId(nextWorkoutNumber())
@@ -116,7 +120,7 @@ export default function TrainingPage(props) {
         <button onClick={changeToWorkoutEditPage} className='clickbtn'>Start</button>
         <br /><br />
         <div className='flexboxContainer'>
-            {props.user.workouts.map((workout) => {
+            {currentUser.workouts.map((workout) => {
                 return <Workout key={`workout${workout.workout}`} workoutData={workout} changePage = {props.changePage} setWorkoutId={props.setWorkoutId}/>
             })}
         </div>
