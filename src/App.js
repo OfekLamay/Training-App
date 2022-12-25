@@ -1,8 +1,8 @@
 import './App.css';
 import {useState} from 'react';
 import {HashRouter as Router, Routes , Route} from 'react-router-dom';
-// import store from './store/store';
-// import { useSelector } from 'react-redux';
+import store from './store/store';
+import { useSelector } from 'react-redux';
 
 
 // components
@@ -19,7 +19,9 @@ function App() {
   
   const [allUsers, setAllUsers] = useState([])
 
-  // const allUsers = useSelector(state => store.getState().users.users)
+  const allUsers1 = useSelector(state => store.getState().users.users)
+
+  console.log(allUsers1)
 
   const [user, setUser] = useState({
     id: 0,
@@ -92,6 +94,15 @@ function App() {
       weeksDone: user.weeksDone + finishedWeeksToAdd,
     }
   }
+
+  const checkDuplicateId = (id) => {
+
+    for (let i = 0; i < allUsers.length; i++)
+      if (allUsers[i].id === id)
+        return true;
+
+    return false;
+  }
   
   const logout = () => {
     setCurrentSetUpPage('home')
@@ -147,7 +158,7 @@ function App() {
     switch(currentSetUpPage) {
       case pages.home:
       {
-        return <Home setUser={setUser} changePage = {setCurrentSetUpPage} users={allUsers}/>
+        return <Home setUser={setUser} isIdExists={checkDuplicateId} changePage={setCurrentSetUpPage} users={allUsers}/>
       }
       case pages.setup:
       {

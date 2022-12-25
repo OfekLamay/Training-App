@@ -97,7 +97,11 @@ export default function TrainingPage(props) {
                 weeksDone: props.user.weeksDone,
             })
         }
-      })
+        else
+        {
+
+        }
+      }, [props.user.workouts])
 
     const changeToWorkoutEditPage = () => {
         props.setWorkoutId(nextWorkoutNumber())

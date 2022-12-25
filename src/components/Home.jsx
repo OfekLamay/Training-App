@@ -30,6 +30,12 @@ export default function Home(props) {
     let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
 
+    if (props.isIdExists(id))
+    {
+      window.alert("There is already a user with this id");
+      return;
+    }
+
     if (isNaN(id))
     {
       window.alert("Id must be numbers");
