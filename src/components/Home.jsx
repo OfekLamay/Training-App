@@ -1,7 +1,20 @@
 import React from 'react'
 import SelectPattern from './SelectPattern';
+import { useSelector } from 'react-redux';
+import store from '../store/store';
 
 export default function Home(props) {
+
+  const allUsers = useSelector(state => store.getState().users.users);
+
+  const isIdExists = (id) => {
+
+    for (let i = 0; i < allUsers.length; i++)
+      if (allUsers[i].id === id)
+        return true;
+
+    return false;
+  }
 
     const genderOptions = [
       {value: "",
@@ -30,7 +43,7 @@ export default function Home(props) {
     let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (props.isIdExists(id))
+    if (isIdExists(id))
     {
       window.alert("There is already a user with this id");
       return;

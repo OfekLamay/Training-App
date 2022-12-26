@@ -77,7 +77,6 @@ const usersSlice = createSlice({
       finishWorkout: (state, action) => {
 
         // payload: {workoutId: workoutData.workout, user: user}
-        console.log(action.payload)
 
         let userIndex, counter = 0;
 

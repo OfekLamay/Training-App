@@ -10,7 +10,7 @@ export default function WorkoutEdit(props) {
 
     const clickSuccess = () => {
         window.alert("Workout done!")
-        props.finishWorkout(props.workoutData.workout)
+        // props.finishWorkout(props.workoutData.workout)
         store.dispatch(finishWorkout({workoutId: props.workoutData.workout, user: props.user}))
         props.changePage('trainer');
         navigate(`/training/${props.user.pageUrl}`);

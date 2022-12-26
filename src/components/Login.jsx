@@ -1,16 +1,32 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import store from '../store/store';
 
 export default function Login(props) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const allUsers = useSelector(state => store.getState().users.users);
+  
+    const getPageUrlById = (id) => {
+      for (let i = 0; i < allUsers.length; i++)
+      {
+        if (allUsers[i].id === id)
+        {
+          return `/training/${allUsers[i].pageUrl}`;
+        }
+      }
+  
+      return "/"
+    }
 
     const areDetailsValid = () => {
         let id = document.getElementById('id').value;
         let password = document.getElementById('password').value;
     
         if (props.checkCredentials(id, password))
-          navigate(props.getUrl(id));
+          navigate(getPageUrlById(id));
     
       }
 

@@ -10,7 +10,6 @@ export default function Ready(props) {
 
     const clickYes = () => {
         window.alert("You will be redirected to your page")
-        // props.addUser(props.user)
         store.dispatch(addUser(props.user))
         store.dispatch(generateWorkouts({user: props.user}))
         props.changePage('home')
