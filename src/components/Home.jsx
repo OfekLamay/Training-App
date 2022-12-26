@@ -132,7 +132,7 @@ export default function Home(props) {
   return (
     <div>
       <div className='flexboxContainer'>
-        <div className='nameLabel'>Enter your details or <div className='goToLogin' onClick={()=>{props.changePage('login')}}> go to log in screen</div></div>
+        <div className='nameLabel'>Enter your details or <div className='goToLogin' onClick={()=>{props.changePage('login')}}> go to the log in screen</div></div>
         <br /><br />
         <input type="text" id='id' className='inputLabel' placeholder='Enter your id' />
         <br /><br />

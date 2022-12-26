@@ -17,11 +17,9 @@ import Login from './components/Login';
 
 function App() {
   
-  const [allUsers, setAllUsers] = useState([])
+  // const [allUsers, setAllUsers] = useState([])
 
-  const allUsers1 = useSelector(state => store.getState().users.users)
-
-  // console.log(allUsers1)
+  const allUsers = useSelector(state => store.getState().users.users)
 
   const [user, setUser] = useState({
     id: 0,
@@ -51,7 +49,6 @@ function App() {
 
   const finishWorkout = (workoutId) => {
     let userWorkouts = user.workouts;
-    let users = [...allUsers];
     let finishedWeeksToAdd = 0
     for (let i = 0; i < userWorkouts.length; i++)
     {
@@ -82,17 +79,6 @@ function App() {
       weeksDone: user.weeksDone + finishedWeeksToAdd,
     })
 
-    users[(getUserIndex(user.id))] = {
-      id: user.id,
-      name: user.name,
-      gender: user.gender,
-      password: user.password,
-      weeklyWorkouts: user.weeklyWorkouts,
-      yearsTraining: user.yearsTraining,
-      pageUrl: user.pageUrl,
-      workouts: userWorkouts,
-      weeksDone: user.weeksDone + finishedWeeksToAdd,
-    }
   }
 
   const checkDuplicateId = (id) => {
@@ -108,9 +94,9 @@ function App() {
     setCurrentSetUpPage('home')
   }
 
-  const addNewUser = () => {
-    setAllUsers([...allUsers, user])
-  }
+  // const addNewUser = () => {
+  //   setAllUsers([...allUsers, user])
+  // }
 
   const checkLogIn = (id, password) => {
     
@@ -158,7 +144,7 @@ function App() {
     switch(currentSetUpPage) {
       case pages.home:
       {
-        return <Home setUser={setUser} isIdExists={checkDuplicateId} changePage={setCurrentSetUpPage} users={allUsers}/>
+        return <Home setUser={setUser} isIdExists={checkDuplicateId} changePage={setCurrentSetUpPage}/>
       }
       case pages.setup:
       {
@@ -166,8 +152,8 @@ function App() {
       }
       case pages.ready:
       {
-        return <Ready user={user} setUser={setUser} addUser={addNewUser} changePage = {setCurrentSetUpPage}/>
-        // return <Ready user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
+        // return <Ready user={user} setUser={setUser} addUser={addNewUser} changePage = {setCurrentSetUpPage}/>
+        return <Ready user={user} setUser={setUser} changePage = {setCurrentSetUpPage}/>
       }
       case pages.login:
       {
@@ -188,7 +174,7 @@ function App() {
       }
       case pages.workoutEdit:
       {
-        return <WorkoutEdit user={user} setWorkoutId={setWorkoutId} workoutData={allUsers1[(getUserIndex(user.id))].workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
+        return <WorkoutEdit user={user} workoutData={allUsers[(getUserIndex(user.id))].workouts[workoutId-1]} finishWorkout={finishWorkout} changePage = {setCurrentTrainigPage}/>
       }
       default: 
       {
