@@ -108,7 +108,7 @@ function App() {
     switch(currentTrainigPage) {
       case pages.trainer:
       {
-        return <TrainingPage logout={logout} getUserIndex={getUserIndex} setUser={setUser} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
+        return <TrainingPage logout={logout} getUserIndex={getUserIndex} setWorkoutId={setWorkoutId} user={user} changePage = {setCurrentTrainigPage}/>
       }
       case pages.workoutEdit:
       {
