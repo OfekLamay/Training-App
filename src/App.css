@@ -44,6 +44,13 @@ h1 {
   display: inline;
 }
 
+.workoutsPreviewText {
+  font-size: 35px;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
 .clickbtn {
   cursor: pointer;
   background-color: rgb(22, 143, 219);
@@ -51,6 +58,7 @@ h1 {
   color: white;
   padding: 4px;
   width: fit-content;
+  min-width: 25%;
   margin: auto;
   border-radius: 35px;
 }
@@ -60,6 +68,7 @@ h1 {
   flex-direction: column;
   text-align: center;
   width: fit-content;
+  min-width: 30%;
   margin:auto;
   min-height: 50px;
   height: 50%;
@@ -73,7 +82,8 @@ h1 {
   text-align: center;
   width: 70%;
   max-width: 300px;
-  margin:auto;
+  margin: auto;
+  margin-bottom: 25px;
   font-size: 35px;
 }
 
@@ -94,6 +104,7 @@ input {
   padding: 6px;
   border-radius: 20px;
   margin: 15px;
+  background-color: ghostwhite;
 }
 
 .workoutData {
@@ -213,6 +224,13 @@ input {
     font-size: 20px;
     font-weight: bold;
     text-decoration: underline;
+  }
+
+  .workoutsPreviewText {
+    font-size: 20px;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 15px;
   }
 
 }
